@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,20 +8,30 @@ use Excel;
 use DB;
 use Validator;
 
-class ImportExportController extends Controller
+class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
         $data = DB::table('import_data')->where('job_no', '')->orderBy('job_no','asc')->get();
-        return view('index',compact('data'));
+        return view('home',compact('data'));
     }
 
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -28,11 +39,11 @@ class ImportExportController extends Controller
     public function downloadData(Request $request)
     {
         ini_set('memory_limit', '-1');
-        $validatedData = $request->validate([
+        $request->validate([
             'start_date'=>'required',
             'end_date' => 'required|after:start_date'
         ]);
-
+        //dd($request);
         $data = ImportData::select(
             'job_no as Job Number',
             'doc_recv_date as Recv Date',
@@ -83,7 +94,7 @@ class ImportExportController extends Controller
         
         if(empty($data))
         {
-            return view('index',compact('data'));
+            return view('home',compact('data'));
         }
         else
         {
@@ -96,7 +107,7 @@ class ImportExportController extends Controller
                 });
             })->download($type);
 
-            return view('index',compact('data'));
+            return view('home',compact('data'));
         }
     }
 
@@ -196,6 +207,6 @@ class ImportExportController extends Controller
         }                
         
         $data = DB::table('import_data')->where('file_name', $file_name)->orderBy('job_no','asc')->get();
-        return view('index',compact('data'))->with('success', 'Insert Record successfully.');
+        return view('home',compact('data'));
     }
 }

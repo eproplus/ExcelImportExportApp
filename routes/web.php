@@ -15,6 +15,12 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'ImportExportController@index');
-Route::get('downloadData', 'ImportExportController@downloadData');
-Route::post('importData', 'ImportExportController@importData');
+// Route::get('/', 'ImportExportController@index');
+// Route::get('downloadData', 'ImportExportController@downloadData');
+// Route::post('importData', 'ImportExportController@importData');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('downloadData', 'HomeController@downloadData');
+Route::post('importData', 'HomeController@importData');

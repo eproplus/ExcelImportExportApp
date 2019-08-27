@@ -1,40 +1,8 @@
-<html lang="en">
-<head>
-    <title>Visual Impex Data</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-</head>
-<style>    
-    .container{
-        margin-top: 2%;
-    }
+@extends('layouts.app')
 
-    .body {
-        background-color: #ccd9f9;
-    }
-    
-    #customers {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-    #customers td, #customers th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-    #customers tr:nth-child(even){background-color: #f2f2f2;}
-    #customers tr:hover {background-color: #ddd;}
-    #customers th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #283361;
-        color: white;
-    }
-</style>
-<body>
-<div class="container">
-    @if ($errors->any())
+@section('content')
+
+@if ($errors->any())
         <div class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
             <ul>
@@ -53,14 +21,9 @@
     @endif
     <div class="card body">
         <div class="card-body">
-            <h5 class="card-title row justify-content-center">
+            <!-- <h5 class="card-title row justify-content-center">
                 <strong>Visual Impex Data Import Export to Excel , CSV Example</strong>
-            </h5>
-            <!-- <br/>
-            <a href="{{ url('downloadData/xlsx') }}"><button class="btn btn-dark">Download Excel xlsx</button></a>
-            <a href="{{ url('downloadData/xls') }}"><button class="btn btn-success">Download Excel xls</button></a>
-            <a href="{{ url('downloadData/csv') }}"><button class="btn btn-info">Download CSV</button></a> -->
-
+            </h5> -->
             <form style="border: 2px solid #a1a1a1;margin-top: 15px;padding: 5px;text-align: center;" action="{{ url('importData') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="import_file" />
@@ -202,8 +165,4 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
+@endsection
